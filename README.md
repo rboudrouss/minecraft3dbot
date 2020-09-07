@@ -2,6 +2,6 @@
 
 just one of my stupid ideas x'D
 
-# goal
+## goal
 
 <img src = "img/objectif.png" alt = "objectif">

@@ -1,4 +1,4 @@
-from secret_thinks import BOT_TOKEN, TESTERS
+from secret_things import BOT_TOKEN, TESTERS
 import discord
 from discord.ext import commands
 import os
@@ -40,7 +40,7 @@ async def on_ready():  # on ready
 async def on_command_error(ctx, error):  # in case of errors
     if isinstance(error, commands.MissingPermissions):
         print(error)
-        await ctx.send("Error Mission Permission")
+        await ctx.send("Error Missing Permission")
 
 
 # Commands
@@ -58,11 +58,6 @@ async def reload_cogs(ctx):
 @client.command()
 async def stop(ctx):
     quit()
-
-
-# @client.command(aliases=['test'])
-# async def _test(ctx):
-#     pass
 
 
 client.run(BOT_TOKEN)

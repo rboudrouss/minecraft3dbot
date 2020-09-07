@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from ..secret_things import TESTERS
 
 
 class GameEngine(commands.Cog):
@@ -7,14 +8,13 @@ class GameEngine(commands.Cog):
         self.client = client
 
     # events
-    # @commands.Cog.listener()
-    # async def on_ready(self):
-    #     pass
 
     # commands
+
     @commands.command(aliases=['glv'])
     async def loaded_verif(self, ctx):
-        await ctx.send('RAS !')
+        if ctx.author.id in TESTERS:
+            await ctx.send('RAS !')
 
     @commands.command(aliases=[])
     async def init(self, ctx, number: int):
