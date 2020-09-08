@@ -1,4 +1,8 @@
+# temporary python files
 *__pycache__
+
+# temporary formater files
+*.tmp
 
 # things that must stay secret
 secret_things.py

@@ -10,6 +10,7 @@ infos :
     bloc_background_color = rgb(53,56,61)
 
 goal :
+    actually only the rdepth_model is not generated
     generate images in 32x32 with bloc_background_color with some weid depth things left and right
     (still don't know how to do the weird depth things)
         - just copie from the image (objectif.png) and past ?
@@ -22,20 +23,23 @@ import numpy as np
 import cv2
 import os
 
-RESOLUTION = (32, 32, 3)
-BLOC_BGC = (53, 56, 61)
-DISCORD_BGC = (54, 57, 63)
+DISCORD_EMOJIS_EQ = {}
+RESOLUTION = (32, 32, 3)  # the third dimension is for the 3 color layers
+BLOC_BGC = (53, 56, 61)  # color
+SELECTED_BLOC_BGC = (200, 50, 50)
+DISCORD_BGC = (54, 57, 63)  # color
 ALLBLOC = ['', 'r', 'l', 'u', 'd', 'rl', 'ru', 'rd',
-           'lu', 'ld', 'ud', 'rlu', 'rld', 'rud', 'lud', 'rlud', 'discord']
-FILE_PATH = os.path.dirname(os.path.realpath(__file__))
+           'lu', 'ld', 'ud', 'rlu', 'rld', 'rud', 'lud', 'rlud', 's', 'sr', 'sl', 'su', 'sd', 'srl', 'sru', 'srd', 'slu', 'sld', 'sud', 'srlu', 'srld', 'srud', 'slud', 'srlud', 'i']  # flemme de générer manuellement x)
+DISCORD_EMOJIS_EQ = {i: f"{i}depth_block" for i in ALLBLOC}
+DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
 
 def read_rmodel():
-    return cv2.imread(f"{FILE_PATH}/assets/rdepth_model.jpg")
+    return cv2.imread(f"{DIR_PATH}/assets/rdepth_model.jpg")
 
 
 def write_asset(depth_model, model_type):
-    cv2.imwrite(f"{FILE_PATH}/assets/{model_type}depth_model.jpg", depth_model)
+    cv2.imwrite(f"{DIR_PATH}/assets/{model_type}depth_model.jpg", depth_model)
 
 
 def read_create_model(model_type):
@@ -55,19 +59,11 @@ def read_create_model(model_type):
         return depth_model
 
 
-def generate_base():
+def generate_base(color=BLOC_BGC):
     img = np.zeros(RESOLUTION)
-    img[:, :, 0] = BLOC_BGC[2]
-    img[:, :, 1] = BLOC_BGC[1]
-    img[:, :, 2] = BLOC_BGC[0]
-    return img
-
-
-def generate_discord():
-    img = np.zeros(RESOLUTION)
-    img[:, :, 0] = DISCORD_BGC[2]
-    img[:, :, 1] = DISCORD_BGC[1]
-    img[:, :, 2] = DISCORD_BGC[0]
+    img[:, :, 0] = color[2]
+    img[:, :, 1] = color[1]
+    img[:, :, 2] = color[0]
     return img
 
 
@@ -169,10 +165,13 @@ def generate_u(img):
 
 def generate_bloc(bloctype):
     print(f"generating {bloctype}...")
-    if bloctype == "discord":
-        return (generate_discord(), "discord_block")
+    if bloctype == "i":
+        return (generate_base(DISCORD_BGC), "idepth_block")
     else:
-        img = generate_base()
+        if 's' in bloctype:
+            img = generate_base(SELECTED_BLOC_BGC)
+        else:
+            img = generate_base()
         if 'r' in bloctype:
             img = generate_r(img)
         if 'l' in bloctype:
@@ -185,7 +184,7 @@ def generate_bloc(bloctype):
 
 
 def write_emoji(img, name):
-    cv2.imwrite(f"{FILE_PATH}/emojies/{name}.png", img)
+    cv2.imwrite(f"{DIR_PATH}/emojies/{name}.png", img)
 
 
 def gen_write_all():

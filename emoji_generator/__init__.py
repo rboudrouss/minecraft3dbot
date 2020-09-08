@@ -1,0 +1,1 @@
+import emoji_generator
