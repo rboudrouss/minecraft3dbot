@@ -6,11 +6,11 @@ import sys
 
 # TODO add codumentation
 
-if 'emoji_generator' in os.listdir() and 'game' in os.listdir():
-    sys.path.insert(1, './emoji_generator')
-    sys.path.insert(1, './game')
-else:
-    raise ModuleNotFoundError
+# if 'emoji_generator' in os.listdir() and 'game' in os.listdir():
+#     sys.path.insert(1, './emoji_generator')
+#     sys.path.insert(1, './game')
+# else:
+#     raise ModuleNotFoundError
 
 # bot
 client = commands.Bot(command_prefix="+")
