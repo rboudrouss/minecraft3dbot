@@ -5,6 +5,8 @@ import os
 import sys
 
 # TODO add codumentation
+# TODO compact DBEMOJI_EQ (in game) et DISCORD_EMOJIS_EQ (in emoji). faudra donc qu'ils communique entre eux avec rlud,lud,ud etc...
+# TODO FIX rlud & srlud emojis return None
 
 # if 'emoji_generator' in os.listdir() and 'game' in os.listdir():
 #     sys.path.insert(1, './emoji_generator')
@@ -53,7 +55,7 @@ async def on_command_error(ctx, error):  # in case of errors
 
 
 # Commands
-@client.command(aliases=['rg'])
+@client.command(aliases=['rc'])
 async def reload_cogs(ctx):
     if ctx.author.id in TESTERS:
         await ctx.send("`reloading the Cogs...`")
@@ -66,6 +68,7 @@ async def reload_cogs(ctx):
 
 @client.command()
 async def stop(ctx):
+    await ctx.send("`quitting...`")
     quit()
 
 
