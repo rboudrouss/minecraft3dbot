@@ -65,23 +65,26 @@ class GameFrontEnd(commands.Cog):
     async def on_reaction_add(self, reaction, user):
         if self.user != user:
             return
+        if reaction.emoji in []:
+            try:
+                await reaction.remove(user)
+            except discord.errors.Forbidden:
+                # FIXME
+                await self.client.send_message(user, 'An error has occured,\nplease use `move` and `interact` commands instead')
+            except:  # TODO find this error => not enough permission
+                await self.client.send_message(user, 'I actually need the "manage messages" permission to actually delete the reaction --\'')
+
         if reaction.emoji == "⬅️":
-            await reaction.remove(user)
             await self.move_f(0, -1)
-        if reaction.emoji == "⬆️":
-            await reaction.remove(user)
+        elif reaction.emoji == "⬆️":
             await self.move_f(-1, 0)
         elif reaction.emoji == "⬇️":
-            await reaction.remove(user)
             await self.move_f(1, 0)
         elif reaction.emoji == "➡️":
-            await reaction.remove(user)
             await self.move_f(0, 1)
         elif reaction.emoji == "💥":
-            await reaction.remove(user)
             await self.interact_f(1)
         elif reaction.emoji == "➕":
-            await reaction.remove(user)
             await self.interact_f(-1)
 
     # commands
