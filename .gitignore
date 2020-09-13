@@ -5,7 +5,7 @@
 *.tmp
 
 # things that must stay secret
-secret_things.py
+utils/secret_things.py
 
 # some temporary non-necessary things that i don't wanna delete
 ignore/*

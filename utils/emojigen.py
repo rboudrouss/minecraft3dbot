@@ -1,4 +1,5 @@
 """
+https://github.com/EmoteBot/EmoteManager
 infos :
     emoji_resolution = 32x32
     size < 256 kb
@@ -29,7 +30,6 @@ SELECTED_BLOC_BGC = (200, 50, 50)
 DISCORD_BGC = (54, 57, 63)  # color
 ALLBLOC = ['', 'r', 'l', 'u', 'd', 'rl', 'ru', 'rd',
            'lu', 'ld', 'ud', 'rlu', 'rld', 'rud', 'lud', 'rlud', 's', 'sr', 'sl', 'su', 'sd', 'srl', 'sru', 'srd', 'slu', 'sld', 'sud', 'srlu', 'srld', 'srud', 'slud', 'srlud', 'i']  # flemme de générer manuellement x)
-DISCORD_EMOJIS_EQ = {i: f"{i}depth_block" for i in ALLBLOC}
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
 
