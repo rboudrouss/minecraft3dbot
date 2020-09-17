@@ -4,9 +4,7 @@ from discord.ext import commands
 import os
 import sys
 
-# TODO add codumentation
-# TODO compact DBEMOJI_EQ (in game) et DISCORD_EMOJIS_EQ (in emoji). faudra donc qu'ils communique entre eux avec rlud,lud,ud etc...
-# TODO FIX rlud & srlud emojis return None
+# TODO add documentation
 
 # bot
 client = commands.Bot(command_prefix="+")
@@ -41,8 +39,7 @@ async def on_ready():  # on ready
     try:
         load_cogs()
     except commands.errors.ExtensionAlreadyLoaded:
-        unload_cogs()
-        load_cogs()
+        pass
 
     await client.change_presence(
         status=discord.Status.online,
@@ -51,17 +48,10 @@ async def on_ready():  # on ready
     print("\nready\n")
 
 
-@client.event
-async def on_command_error(ctx, error):  # in case of errors
-    if isinstance(error, commands.MissingPermissions):
-        print(error)
-        await ctx.send("Error Missing Permission")
-
-
 # Commands
 
 @client.command(aliases=['rc'])
-async def reload_cogs(ctx):
+async def reload_cogs_(ctx):
     if ctx.author.id in TESTERS:
         await client.change_presence(
             status=discord.Status.idle,
@@ -82,7 +72,7 @@ async def reload_cogs(ctx):
 
 
 @client.command(aliases=['lc'])
-async def load_cogs(ctx):
+async def load_cogs_(ctx):
     if ctx.author.id in TESTERS:
         await client.change_presence(
             status=discord.Status.idle,
@@ -102,7 +92,7 @@ async def load_cogs(ctx):
 
 
 @client.command(aliases=['uc'])
-async def unload_cogs(ctx):
+async def unload_cogs_(ctx):
     if ctx.author.id in TESTERS:
         await client.change_presence(
             status=discord.Status.idle,
